@@ -38,4 +38,9 @@ class Inquery extends Model
     public function inquery_items(){
         return $this->hasMany(Inquery_item::class);
     }
+
+    public function scheduleds()
+    {
+        return $this->hasMany(Scheduled_inquery::class);
+    }
 }
