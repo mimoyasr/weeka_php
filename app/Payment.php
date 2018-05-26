@@ -25,4 +25,8 @@ class Payment extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function inqueries(){
+        return $this->hasMany(Inquery::class);
+    }
 }

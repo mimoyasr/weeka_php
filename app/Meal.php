@@ -35,4 +35,12 @@ class Meal extends Model
     {
         return $this->hasMany(Review::class);
     }
+   public function favs(){
+       return $this->hasMany(Fav::class);
+   }
+
+   public function inquery_items(){
+    return $this->hasMany(Inquery_item::class);
+}
+
 }
