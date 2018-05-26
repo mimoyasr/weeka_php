@@ -35,5 +35,4 @@ class Meal extends Model
     {
         return $this->hasMany(Review::class);
     }
-
 }
