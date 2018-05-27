@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\ChefCollection;
+use App\Http\Resources\ChefResource;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 
@@ -11,10 +11,9 @@ class ChefController extends Controller
 
     public function index()
     {
-        $Chefs = User::where('type', 'chef')
-            ->orderBy('fname', 'asc')
-            ->get();
-        return ChefCollection::collection($Chefs);
+        $Chefs = User::where('type', 'chef')->orderBy('fname', 'asc')->get();
+        
+        return ChefResource::collection($Chefs);
     }
 
     public function store(Request $request)
@@ -34,12 +33,12 @@ class ChefController extends Controller
         $data['password'] = bcrypt($request->password);
         $data['type'] = 'chef';
         $chef = User::create($data);
-        return new ChefCollection($chef);
+        return new ChefResource($chef);
     }
 
     public function show(User $chef)
     {
-        return new ChefCollection($chef);
+        return new ChefResource($chef);
     }
 
     public function update(Request $request, User $chef)
@@ -56,7 +55,7 @@ class ChefController extends Controller
         }
         $data['password'] = bcrypt($request->password);
         $chef->update($data);
-        return new ChefCollection($chef);
+        return new ChefResource($chef);
     }
 
     public function destroy(User $chef)
