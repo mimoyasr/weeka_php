@@ -3,83 +3,37 @@
 namespace App\Http\Controllers;
 
 use App\Meal;
+use App\Review;
+use App\Http\Resources\MealResource;
 use Illuminate\Http\Request;
 
 class MealController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+  
     public function store(Request $request)
     {
-        //
+        $data=$request->all();
+        $meal= Meal::create($data);
+        return new MealResource($meal);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Meal  $meal
-     * @return \Illuminate\Http\Response
-     */
+   
     public function show(Meal $meal)
     {
-        //
+        return new MealResource($meal);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Meal  $meal
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Meal $meal)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Meal  $meal
-     * @return \Illuminate\Http\Response
-     */
+     
     public function update(Request $request, Meal $meal)
     {
-        //
+        $data=$request->all();
+        $meal->update($data);
+        return new MealResource($meal);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Meal  $meal
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Meal $meal)
     {
-        //
+        return json_encode(['status'=> $meal->delete()]);
+
     }
 }
