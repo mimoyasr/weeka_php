@@ -16,7 +16,7 @@ class Meal extends Model
         'chef_id', 
         'category_id',
         'image',
-        'perpration_time',
+        'prepartion_time',
         'price',
         'desc',
     ];
