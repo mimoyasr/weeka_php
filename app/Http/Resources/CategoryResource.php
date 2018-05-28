@@ -15,9 +15,11 @@ class CategoryResource extends JsonResource
     public function toArray($request)
     {
         $cat = [] ;
+        $cat['id'] = $this->id;
         $cat['name'] = $this->name;
-        if($this->meals){
+        if(!empty($this->meals)){
             $cat['meals'] = MealResource::collection($this->meals);
         }
+        return $cat;
     }
 }
