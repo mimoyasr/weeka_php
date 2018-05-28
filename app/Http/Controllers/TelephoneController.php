@@ -23,16 +23,17 @@ class TelephoneController extends Controller
         return new TelephoneResource($telephone);
     }
 
-    public function update(Request $request, Telephone $tel)
+    public function update(Request $request, Telephone $telephone)
     {
+     
         $data= $request->all();
-        $tel->update($data);
-        return new TelephoneResource($tel);
+        $telephone->update($data);
+        return new TelephoneResource($telephone);
     }
 
 
-    public function destroy(Telephone $tel)
+    public function destroy(Telephone $telephone)
     {
-        return json_encode(['status'=> $tel->delete()]);
+        return json_encode(['status'=> $telephone->delete()]);
     }
 }
