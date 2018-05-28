@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\ChefResource;
-use Illuminate\Foundation\Auth\User;
+use App\User;
 use Illuminate\Http\Request;
 
 class ChefController extends Controller
@@ -50,10 +50,12 @@ class ChefController extends Controller
             $data['image'] = $filename;
             $destinationPath = public_path('uploads');
             if (!$image->move($destinationPath, $filename)) {
-                return \json_encode(['Error' => 'Error saving the profile image']);
+                return json_encode(['Error' => 'Error saving the profile image']);
             }
         }
-        $data['password'] = bcrypt($request->password);
+        if($request->password){
+            $data['password'] = bcrypt($request->password);
+        }
         $chef->update($data);
         return new ChefResource($chef);
     }
