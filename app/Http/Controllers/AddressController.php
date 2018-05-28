@@ -11,10 +11,10 @@ class AddressController extends Controller
 {
   
    
-    // public function show(Address $address)
-    // {
-    //     return new AddressResource($address);
-    // }
+    public function show(Address $address)
+    {
+        return new AddressResource($address);
+    }
 
     public function store(Request $request)
     {

@@ -3,83 +3,36 @@
 namespace App\Http\Controllers;
 
 use App\Telephone;
+use App\Http\Resources\TelephoneResource;
 use Illuminate\Http\Request;
 
 class TelephoneController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+  
+  
     public function store(Request $request)
     {
-        //
+        $data= $request->all();
+        $tel=Telephone::create($data);
+        return new TelephoneResource($tel);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Telephone  $telephone
-     * @return \Illuminate\Http\Response
-     */
+  
     public function show(Telephone $telephone)
     {
-        //
+        return new TelephoneResource($telephone);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Telephone  $telephone
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Telephone $telephone)
+    public function update(Request $request, Telephone $tel)
     {
-        //
+        $data= $request->all();
+        $tel->update($data);
+        return new TelephoneResource($tel);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Telephone  $telephone
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Telephone $telephone)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Telephone  $telephone
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Telephone $telephone)
+    public function destroy(Telephone $tel)
     {
-        //
+        return json_encode(['status'=> $tel->delete()]);
     }
 }
