@@ -19,3 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::resource('chefs', 'ChefController')->except(['create','edit']);
 Route::resource('clients', 'ClientController')->except(['create','edit','index']);
+Route::resource('addresses', 'AddressController')->except(['create','edit','index']);
