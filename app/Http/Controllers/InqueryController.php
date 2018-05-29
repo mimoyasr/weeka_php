@@ -3,10 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Inquery;
+use App\User;
 use Illuminate\Http\Request;
+use App\Http\Resources\InqueryResource;
 
 class InqueryController extends Controller
 {
+
+    private $user;
+
+      /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->user = User::find(2);
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -14,17 +30,8 @@ class InqueryController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $Inquerys = Inquery::where('user_id', $this->user->id )->orderBy('id', 'asc')->get();
+        return InqueryResource::collection($Inquerys);
     }
 
     /**
@@ -50,17 +57,6 @@ class InqueryController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Inquery  $inquery
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Inquery $inquery)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -81,5 +77,13 @@ class InqueryController extends Controller
     public function destroy(Inquery $inquery)
     {
         //
+    }
+
+    public function addItem(Inquery $inquery){
+
+    }
+
+    public function remItem(Inquery $inquery){
+        
     }
 }

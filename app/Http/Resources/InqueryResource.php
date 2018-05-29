@@ -14,19 +14,14 @@ class InqueryResource extends JsonResource
      */
     public function toArray($request)
     {
-        // 'user_id',
-        // 'telephone_id',
-        // 'address_id',
-        // 'payment_id',
-        // 'additional_cost',
-        // 'state'
         return [
-            'client' => new ClientResource($this->client),
-            'meal' => new MealResource($this->meal),
+            'client' => new ClientResource($this->user),
             'telephone' => new TelephoneResource($this->telephone),
             'address' => new AddressResource($this->address),
-            'price' => $this->price,
-            'quantity' => $this->quantity
+            'payment' => new PaymentResource($this->payment),
+            'additional_cost' => $this->additional_cost,
+            'state' => $this->state,
+            'items' => InqueryItemResource::collection($this->inquery_items)
         ];
     }
 }
