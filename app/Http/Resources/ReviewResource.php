@@ -17,7 +17,7 @@ class ReviewResource extends JsonResource
         return [
         'user'=> new ClientResource($this->user), 
         'meal_id' => $this->meal_id,
-        'commnet' => $this->commnet,
+        'comment' => $this->commnet,
         'rate' => $this->rate,
         ];
     }
