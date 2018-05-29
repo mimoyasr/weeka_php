@@ -16,8 +16,4 @@ class Provider extends Model
         'prefix',
     ];
 
-    public function telephones(){
-        return $this->hasMany(Telephone::class);
-    }
-
 }
