@@ -21,7 +21,7 @@ class MealResource extends JsonResource
             'image' => $this->image,
             'category_id' => $this->category_id,
             'price' => $this->price,
-            'prepartion_time' => $this->prepartion_time,
+            'preparation_time' => $this->preparation_time,
             'description' => $this->desc,
             'reviews' => ReviewResource::collection($this->reviews)
         ];
