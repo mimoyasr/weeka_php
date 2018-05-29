@@ -19,7 +19,7 @@ class CreateReviewsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedInteger('meal_id');
             $table->foreign('meal_id')->references('id')->on('meals');
-            $table->string('commnet');
+            $table->string('comment');
             $table->unsignedInteger('rate');
             $table->timestamps();
         });
