@@ -28,3 +28,8 @@ Route::post('/workinghours', 'WorkingHourController@store')->name('workinghours.
 Route::patch('/workinghours/{id}', 'WorkingHourController@update')->name('workinghours.update');
 Route::delete('/workinghours/{id}', 'WorkingHourController@destroy')->name('workinghours.destroy');
 Route::resource('meals', 'MealController')->except(['index', 'edit','create']);
+Route::resource('cities', 'CityController')->only(['index']);
+Route::resource('countries', 'CountryController')->only(['index']);
+Route::resource('districts', 'DistrictController')->only(['index']);
+Route::resource('providers', 'ProviderController')->only(['index']);
+
