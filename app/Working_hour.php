@@ -12,7 +12,7 @@ class Working_hour extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id',
+        'chef_id',
         'from_hour',
         'from_min',
         'from_period',

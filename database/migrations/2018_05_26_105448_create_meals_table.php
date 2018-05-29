@@ -21,7 +21,7 @@ class CreateMealsTable extends Migration
             $table->unsignedInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
             $table->string('image')->nullable()->default(null);
-            $table->float('prepartion_time');
+            $table->float('preparation_time');
             $table->float('price');
             $table->longText('desc');
             $table->timestamps();
