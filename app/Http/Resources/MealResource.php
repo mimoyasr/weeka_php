@@ -15,6 +15,7 @@ class MealResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'chef' => new ChefResource($this->chef),
             'image' => $this->image,
@@ -22,8 +23,7 @@ class MealResource extends JsonResource
             'price' => $this->price,
             'prepartion_time' => $this->prepartion_time,
             'description' => $this->desc,
-            'review'=> ReviewResource::collection($this->reviews),
-      
+            'reviews' => ReviewResource::collection($this->reviews)
         ];
     }
 }
