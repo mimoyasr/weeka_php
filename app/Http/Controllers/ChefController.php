@@ -12,7 +12,6 @@ class ChefController extends Controller
     public function index()
     {
         $Chefs = User::where('type', 'chef')->orderBy('fname', 'asc')->get();
-        
         return ChefResource::collection($Chefs);
     }
 

@@ -42,7 +42,9 @@ class InqueryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data=$request->all();
+        $inquery= Inquery::create($data);
+        return new InqueryResource($inquery);
     }
 
     /**
@@ -53,7 +55,7 @@ class InqueryController extends Controller
      */
     public function show(Inquery $inquery)
     {
-        //
+        return new InqueryResource($inquery);
     }
 
     /**
@@ -65,7 +67,9 @@ class InqueryController extends Controller
      */
     public function update(Request $request, Inquery $inquery)
     {
-        //
+        $data=$request->all();
+        $inquery->update($data);
+        return new InqueryResource($inquery);
     }
 
     /**
@@ -76,7 +80,7 @@ class InqueryController extends Controller
      */
     public function destroy(Inquery $inquery)
     {
-        //
+        return json_encode(['status'=> $address->delete()]);
     }
 
     public function addItem(Inquery $inquery){

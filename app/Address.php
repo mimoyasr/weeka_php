@@ -39,7 +39,7 @@ class Address extends Model
         return $this->belongsTo(District::class);
     }
 
-    public function inquery_items(){
+    public function inqueryItems(){
         return $this->hasMany(Inquery_item::class);
     }
       public function inqueries(){

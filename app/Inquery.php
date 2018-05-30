@@ -35,8 +35,8 @@ class Inquery extends Model
         return $this->belongsTo(Payment::class);
     }
 
-    public function inquery_items(){
-        return $this->hasMany(Inquery_item::class);
+    public function inqueryItems(){
+        return $this->hasMany(InqueryItem::class);
     }
 
     public function scheduleds()

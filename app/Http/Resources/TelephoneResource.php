@@ -16,7 +16,7 @@ class TelephoneResource extends JsonResource
     {
         return [
             'number' => $this->number,
-            'user_id' => new ClientResource($this->user),
+            'user' => new ClientResource($this->user),
             'is active'=> $this->isactive,
             'provider_id'=> new ProviderResource($this->Provider)
         ];

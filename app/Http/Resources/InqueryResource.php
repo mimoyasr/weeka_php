@@ -21,7 +21,7 @@ class InqueryResource extends JsonResource
             'payment' => new PaymentResource($this->payment),
             'additional_cost' => $this->additional_cost,
             'state' => $this->state,
-            'items' => InqueryItemResource::collection($this->inquery_items)
+            'items' => InqueryItemResource::collection($this->inqueryItems)
         ];
     }
 }

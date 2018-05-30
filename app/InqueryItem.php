@@ -4,8 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Inquery_item extends Model
+class InqueryItem extends Model
 {
+
     protected $fillable = [
         'meal_id',
         'inquery_id',

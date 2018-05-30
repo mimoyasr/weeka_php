@@ -32,7 +32,7 @@ class Telephone extends Model
         return $this->hasMany(Inquery::class);
     }
     
-    public function inquery_items(){
+    public function inqueryItems(){
         return $this->hasMany(Inquery_item::class);
     }
 }
