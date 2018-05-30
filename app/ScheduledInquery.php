@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Scheduled_inquery extends Model
+class ScheduledInquery extends Model
 {
     /**
      * The attributes that are mass assignable.

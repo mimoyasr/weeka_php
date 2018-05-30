@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Scheduled_inquery;
+use App\ScheduledInquery;
 use Illuminate\Http\Request;
 
 class ScheduledInqueryController extends Controller
@@ -41,10 +41,10 @@ class ScheduledInqueryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Scheduled_inquery  $scheduled_inquery
+     * @param  \App\ScheduledInquery  $scheduledInquery
      * @return \Illuminate\Http\Response
      */
-    public function show(Scheduled_inquery $scheduled_inquery)
+    public function show(ScheduledInquery $scheduledInquery)
     {
         //
     }
@@ -52,10 +52,10 @@ class ScheduledInqueryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Scheduled_inquery  $scheduled_inquery
+     * @param  \App\ScheduledInquery  $scheduledInquery
      * @return \Illuminate\Http\Response
      */
-    public function edit(Scheduled_inquery $scheduled_inquery)
+    public function edit(ScheduledInquery $scheduledInquery)
     {
         //
     }
@@ -64,10 +64,10 @@ class ScheduledInqueryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Scheduled_inquery  $scheduled_inquery
+     * @param  \App\ScheduledInquery  $scheduledInquery
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Scheduled_inquery $scheduled_inquery)
+    public function update(Request $request, ScheduledInquery $scheduledInquery)
     {
         //
     }
@@ -75,10 +75,10 @@ class ScheduledInqueryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Scheduled_inquery  $scheduled_inquery
+     * @param  \App\ScheduledInquery  $scheduledInquery
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Scheduled_inquery $scheduled_inquery)
+    public function destroy(ScheduledInquery $scheduledInquery)
     {
         //
     }
