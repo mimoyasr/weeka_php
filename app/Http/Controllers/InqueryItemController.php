@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\InqueryItemResource;
 use App\Inquery;
 use App\InqueryItem;
 use Illuminate\Http\Request;
-use App\Http\Resources\InqueryItemResource;
 
 class InqueryItemController extends Controller
 {
@@ -28,9 +28,9 @@ class InqueryItemController extends Controller
      */
     public function store(Inquery $inquery, Request $request)
     {
-        $data=$request->all();
+        $data = $request->all();
         $data['inquery_id'] = $inquery->id;
-        $inqueryItem= InqueryItem::create($data);
+        $inqueryItem = InqueryItem::create($data);
         return new InqueryItemResource($inqueryItem);
     }
 
@@ -44,7 +44,12 @@ class InqueryItemController extends Controller
     // public function show(Inquery $inquery, InqueryItem $inqueryItem)
     public function show(Inquery $inquery, $inqueryItem_id)
     {
-        return new InqueryItemResource(InqueryItem::find($inqueryItem_id));
+        $inqueryItem = InqueryItem::find($inqueryItem_id);
+        if ($inqueryItem) {
+            return new InqueryItemResource($inqueryItem);
+        } else {
+            return response()->json(['message' => 'Not Found!'], 404);
+        }
     }
 
     /**
@@ -58,9 +63,13 @@ class InqueryItemController extends Controller
     public function update(Inquery $inquery, int $inqueryItem_id, Request $request)
     {
         $inqueryItem = InqueryItem::find($inqueryItem_id);
-        $data=$request->all();
-        $inqueryItem->update($data);
-        return new InqueryItemResource($inqueryItem);
+        if ($inqueryItem) {
+            $data = $request->all();
+            $inqueryItem->update($data);
+            return new InqueryItemResource($inqueryItem);
+        } else {
+            return response()->json(['message' => 'Not Found!'], 404);
+        } 
     }
 
     /**
@@ -73,6 +82,10 @@ class InqueryItemController extends Controller
     public function destroy(Inquery $inquery, int $inqueryItem_id)
     {
         $inqueryItem = InqueryItem::find($inqueryItem_id);
-        return json_encode(['status'=> $inqueryItem->delete()]);
+        if ($inqueryItem) {
+            return response()->json(['status' => $inqueryItem->delete()]);
+        } else {
+            return response()->json(['message' => 'Not Found!'], 404);
+        }
     }
 }

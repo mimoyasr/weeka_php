@@ -37,3 +37,5 @@ Route::resource('providers', 'ProviderController')->only(['index']);
 Route::resource('reviews', 'ReviewController')->except(['index', 'edit','create']);
 
 Route::resource('inqueries.inqueryitems', 'InqueryItemController')->except(['create','edit']);
+Route::resource('meals.favs', 'FavController')->only(['show','store','destroy']);
+Route::resource('meals.subscribes', 'SubscribeController')->only(['show','store','destroy']);

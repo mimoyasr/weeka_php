@@ -3,73 +3,55 @@
 namespace App\Http\Controllers;
 
 use App\Fav;
+use App\User;
+use App\Meal;
+use App\Http\Resources\FavResource;
 use Illuminate\Http\Request;
 
 class FavController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+    private $user;
 
     /**
-     * Show the form for creating a new resource.
+     * Instantiate a new controller instance.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function create()
+    public function __construct()
     {
-        //
+        $this->user = User::find(2);
     }
 
     /**
      * Store a newly created resource in storage.
      *
+     * @param  \App\Meal  $meal
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Meal $meal, Request $request)
     {
-        //
+        $fav =  Fav::where('user_id',$this->user->id)->where('meal_id',$meal->id)->first();
+        if(!$fav){
+            $data = [];
+            $data['user_id'] = $this->user->id;
+            $data['meal_id'] = $meal->id;
+            $fav = Fav::create($data);
+        }
+        return new FavResource($fav);
+
     }
 
     /**
      * Display the specified resource.
      *
+     * @param  \App\Meal  $meal
      * @param  \App\Fav  $fav
      * @return \Illuminate\Http\Response
      */
-    public function show(Fav $fav)
+    public function show(Meal $meal, Fav $fav)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Fav  $fav
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Fav $fav)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Fav  $fav
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Fav $fav)
-    {
-        //
+        return new FavResource($fav);
     }
 
     /**
@@ -78,8 +60,8 @@ class FavController extends Controller
      * @param  \App\Fav  $fav
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Fav $fav)
+    public function destroy(Meal $meal, Fav $fav)
     {
-        //
+        return response()->json(['status' => $fav->delete()]);
     }
 }
