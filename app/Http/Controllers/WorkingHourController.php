@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Http\Resources\WorkingHoursResource;
-use App\Working_hour;
+use App\WorkingHour;
 use Illuminate\Http\Request;
 
 class WorkingHourController extends Controller
@@ -10,7 +10,7 @@ class WorkingHourController extends Controller
     
     public function index()
     {
-        $data=Working_hour::all();
+        $data=WorkingHour::all();
         return WorkingHoursResource::collection($data);
     }
 
@@ -18,14 +18,14 @@ class WorkingHourController extends Controller
     public function store(Request $request)
     {
        $data=$request->all();
-       $workhours=Working_hour::create($data);
+       $workhours=WorkingHour::create($data);
        return new WorkingHoursResource($workhours);
     }
 
  
     public function update(Request $request,  $id)
     {
-        $workhour = Working_hour::find($id);
+        $workhour = WorkingHour::find($id);
         $data=$request->all();
         $workhour->update($data);
         return new WorkingHoursResource($workhour); 
@@ -33,6 +33,6 @@ class WorkingHourController extends Controller
 
     public function destroy($id)
     {
-       return json_encode(['status'=>Working_hour::find($id)->delete()]);
+       return json_encode(['status'=>WorkingHour::find($id)->delete()]);
     }
 }
