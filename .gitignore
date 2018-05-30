@@ -22,3 +22,5 @@ Homestead.json
 #ignoring uploades
 
 public/uploads/
+
+.idea
