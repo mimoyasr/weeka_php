@@ -23,16 +23,15 @@ class WorkingHourController extends Controller
     }
 
  
-    public function update(Request $request,  $id)
+    public function update(Request $request, WorkingHour  $workingHour)
     {
-        $workhour = WorkingHour::find($id);
         $data=$request->all();
-        $workhour->update($data);
-        return new WorkingHoursResource($workhour); 
+        $workingHour->update($data);
+        return new WorkingHoursResource($workingHour); 
     }
 
-    public function destroy($id)
+    public function destroy(WorkingHour $workingHour)
     {
-       return json_encode(['status'=>WorkingHour::find($id)->delete()]);
+       return json_encode(['status'=> $workingHour->delete()]);
     }
 }
