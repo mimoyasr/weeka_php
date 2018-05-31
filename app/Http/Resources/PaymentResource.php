@@ -14,9 +14,17 @@ class PaymentResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            'user_id' => $this->user_id,
-            'type' => $this->type,
-        ];
+        $data = [];
+        $data['user_id'] = $this->user_id;
+        $data['type'] = $this->type;
+        if( $this->type != 'Cash'){
+            $data['card'] = [
+                'number' => $this->cord_no,
+                'exp' => $this->exp,
+                'cvv' => $this->cvv,
+                'holder' => $this->card_holder_name,
+            ] ;
+        }
+        return $data;
     }
 }
