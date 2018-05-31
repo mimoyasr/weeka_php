@@ -35,4 +35,8 @@ class User extends Authenticatable
     public function inqueries(){
         return $this->hasMany(Inquery::class);
     }
+    // return $this->hasMany('App\Comment', 'foreign_key', 'local_key');
+    public function subscribers(){
+        return $this->hasMany(Subscribe::class, 'chef_id', 'id');
+    }
 }
