@@ -25,6 +25,7 @@ class CreateInqueriesTable extends Migration
             $table->foreign('payment_id')->references('id')->on('payments');
             $table->float('additional_cost');
             $table->integer('state');
+            $tagle->dateTime('at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamps();
         });
     }

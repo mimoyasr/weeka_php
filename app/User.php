@@ -39,6 +39,14 @@ class User extends Authenticatable
     public function inqueries(){
         return $this->hasMany(Inquery::class);
     }
+
+    public function getSchadulesAttribute()
+    {
+        return $this->inqueries->reject(function ($inquery) {
+            return $inquery->state != -1;
+        });
+    }
+
     // return $this->hasMany('App\Comment', 'foreign_key', 'local_key');
     public function subscribers(){
         return $this->hasMany(Subscribe::class, 'chef_id', 'id');

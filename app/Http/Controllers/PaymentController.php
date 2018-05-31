@@ -21,6 +21,7 @@ class PaymentController extends Controller
     {
         $this->user = User::find(2);
     }
+    
     /**
      * Display a listing of the resource.
      *

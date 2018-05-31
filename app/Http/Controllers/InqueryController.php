@@ -22,7 +22,6 @@ class InqueryController extends Controller
         $this->user = User::find(2);
     }
 
-
     /**
      * Display a listing of the resource.
      *
@@ -81,13 +80,5 @@ class InqueryController extends Controller
     public function destroy(Inquery $inquery)
     {
         return json_encode(['status'=> $address->delete()]);
-    }
-
-    public function addItem(Inquery $inquery){
-
-    }
-
-    public function remItem(Inquery $inquery){
-        
     }
 }

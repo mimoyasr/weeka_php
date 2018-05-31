@@ -20,6 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::resource('chefs', 'ChefController')->except(['create', 'edit']);
 Route::resource('inqueries', 'InqueryController')->except(['create', 'edit']);
 Route::resource('payments', 'PaymentController')->except(['create', 'edit']);
+Route::resource('scheduleds', 'ScheduledInqueryController')->only(['index']);
 Route::resource('clients', 'ClientController')->except(['create', 'edit', 'index']);
 Route::resource('addresses', 'AddressController')->except(['create', 'edit', 'index']);
 Route::resource('telephones', 'TelephoneController')->except(['create', 'edit', 'index']);

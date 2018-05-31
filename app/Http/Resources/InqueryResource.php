@@ -14,7 +14,7 @@ class InqueryResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        $data = [
             'client' => new ClientResource($this->user),
             'telephone' => new TelephoneResource($this->telephone),
             'address' => new AddressResource($this->address),
@@ -23,5 +23,9 @@ class InqueryResource extends JsonResource
             'state' => $this->state,
             'items' => InqueryItemResource::collection($this->inqueryItems)
         ];
+        if($this->state == -1){
+            $data['at'] = $this->at;
+        }
+        return $data;
     }
 }
