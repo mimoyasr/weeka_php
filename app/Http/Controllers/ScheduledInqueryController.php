@@ -18,6 +18,7 @@ class ScheduledInqueryController extends Controller
      */
     public function __construct()
     {
+        // $this->user = Auth->user();
         $this->user = User::find(2);
     }
 
@@ -28,6 +29,6 @@ class ScheduledInqueryController extends Controller
      */
     public function index()
     {
-        return InqueryResource::collection($this->user->schadules);
+        return InqueryResource::collection($this->user->schedules);
     }
 }

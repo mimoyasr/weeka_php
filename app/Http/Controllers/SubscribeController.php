@@ -29,7 +29,6 @@ class SubscribeController extends Controller
      */
     public function index(User $chef)
     {
-        dd([$chef->subscribers]);
         return SubscribeResource::collection($chef->subscribes);
     }
 

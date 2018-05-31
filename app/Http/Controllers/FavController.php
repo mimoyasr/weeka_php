@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Fav;
-use App\User;
-use App\Meal;
 use App\Http\Resources\FavResource;
+use App\Meal;
+use App\User;
 use Illuminate\Http\Request;
 
 class FavController extends Controller
@@ -31,8 +31,8 @@ class FavController extends Controller
      */
     public function store(Meal $meal, Request $request)
     {
-        $fav =  Fav::where('user_id',$this->user->id)->where('meal_id',$meal->id)->first();
-        if(!$fav){
+        $fav = Fav::where('user_id', $this->user->id)->where('meal_id', $meal->id)->first();
+        if (!$fav) {
             $data = [];
             $data['user_id'] = $this->user->id;
             $data['meal_id'] = $meal->id;
