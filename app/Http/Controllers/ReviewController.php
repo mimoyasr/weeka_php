@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Http\Resources\ReviewResource;
 use App\Review;
 use App\User;
 use Illuminate\Http\Request;
-use App\Http\Resources\ReviewResource;
 use Illuminate\Support\Facades\Validator;
 
 class ReviewController extends Controller
@@ -25,7 +24,7 @@ class ReviewController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->except('id','user_id');
+        $data = $request->except('id', 'user_id');
         $validation = $this->_validation($data);
         if ($validation !== true) {
             return $validation;
@@ -42,7 +41,7 @@ class ReviewController extends Controller
 
     public function update(Request $request, Review $review)
     {
-        $data = $request->except('id','user_id');
+        $data = $request->except('id', 'user_id');
         $validation = $this->_validation($data);
         if ($validation !== true) {
             return $validation;
@@ -53,7 +52,7 @@ class ReviewController extends Controller
 
     public function destroy(Review $review)
     {
-        return json_encode(['status' => $review->delete()]);
+        return response()->json(['status' => $review->delete()]);
     }
 
     private function _validation($data)
@@ -65,8 +64,7 @@ class ReviewController extends Controller
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
-        } else {
-            return true;
         }
+        return true;
     }
 }

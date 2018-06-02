@@ -15,6 +15,7 @@ class TelephoneResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'number' => $this->number,
             'user' => new ClientResource($this->user),
             'is active'=> $this->isactive,
