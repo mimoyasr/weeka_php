@@ -23,7 +23,7 @@ class AddressController extends Controller
      */
     public function __construct()
     {
-        $this->user = User::find(4);
+        $this->user = User::find(2);
     }
 
     public function show(Address $address)
