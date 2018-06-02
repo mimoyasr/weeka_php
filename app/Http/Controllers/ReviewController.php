@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\ReviewResource;
+
 use App\Review;
 use App\User;
 use Illuminate\Http\Request;
+use App\Http\Resources\ReviewResource;
+use Illuminate\Support\Facades\Validator;
 
 class ReviewController extends Controller
 {
@@ -58,8 +60,8 @@ class ReviewController extends Controller
     {
         $validator = Validator::make($data, [
             'meal_id' => 'required|exists:meals,id',
-            'rate' => 'required|min:1|max:5',
-            'comment' => 'min:3|max:100',
+            'rate' => 'required|integer|between:1,5',
+            'comment' => 'min:3|string|max:100',
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
