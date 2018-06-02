@@ -45,7 +45,11 @@ class TelephoneController extends Controller
 
     public function update(Request $request, Telephone $telephone)
     {
-        $data = $request->all();
+        $data = $request->except('id', 'user_id');
+        $validation = $this->_validation($data);
+        if ($validation !== true) {
+            return $validation;
+        }
         $telephone->update($data);
         return new TelephoneResource($telephone);
     }
