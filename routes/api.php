@@ -22,7 +22,7 @@ Route::resource('inqueries', 'InqueryController')->except(['create', 'edit']);
 Route::resource('payments', 'PaymentController')->except(['create', 'edit']);
 Route::resource('schedules', 'ScheduledInqueryController')->only(['index']);
 Route::resource('clients', 'ClientController')->except(['create', 'edit', 'index']);
-Route::resource('addresses', 'AddressController')->except(['create', 'edit', 'index']);
+Route::resource('addresses', 'AddressController')->except(['edit', 'index']);
 Route::resource('telephones', 'TelephoneController')->except(['create', 'edit', 'index']);
 Route::resource('categories', 'CategoryController')->only(['index', 'show']);
 Route::resource('workinghours', 'WorkingHourController')->except(['create', 'edit']);

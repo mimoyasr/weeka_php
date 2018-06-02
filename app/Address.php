@@ -16,7 +16,8 @@ class Address extends Model
         'buildingno',
         'floorno',
         'flatno',
-        'notice'];
+        'notice'
+    ];
 
     
     public function user()
