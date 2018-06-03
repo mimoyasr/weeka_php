@@ -41,7 +41,12 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        $data=$request->all();
+        $data = $request->except('id', 'user_id');
+        $validation = $this->_validation($data);
+        if ($validation !== true) {
+            return $validation;
+        }
+        $data['user_id'] = $this->user->id;
         $payment = Payment::create($data);
         return new PaymentResource($payment);
     }
@@ -66,7 +71,11 @@ class PaymentController extends Controller
      */
     public function update(Request $request, Payment $payment)
     {
-        $data=$request->all();
+        $data = $request->except('id', 'user_id');
+        $validation = $this->_validation($data);
+        if ($validation !== true) {
+            return $validation;
+        }
         $meal->update($data);
         return new PaymentResource($payment);
     }
@@ -80,5 +89,21 @@ class PaymentController extends Controller
     public function destroy(Payment $payment)
     {
         return json_encode(['status'=> $payment->delete()]);
+    }
+
+    private function _validation($data)
+    {
+        $validator = Validator::make($data, [
+            'name' => 'required|string|min:3|max:10',
+            'type' => 'required|in:Cash,Credit Card',
+            'card_no' => 'required|digits:15',
+            'exp' =>'required|digits:4',
+            'cvv' => 'required|digits:4',
+            'card_holder_name' => 'required|string|min:3|max:20'
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+        return true;
     }
 }

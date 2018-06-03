@@ -8,8 +8,8 @@ use App\Http\Resources\MealResource;
 use Illuminate\Http\Request;
 
 class MealController extends Controller
-{
-  
+{   
+    //TODO meal name must be unique
     public function store(Request $request)
     {
 
