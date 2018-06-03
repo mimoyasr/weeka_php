@@ -20,7 +20,7 @@ class ChefController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->all();
+        $data = $request->except('id');
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $filename = time() . '.' . $image->getClientOriginalExtension();
@@ -39,8 +39,8 @@ class ChefController extends Controller
 
             $data['password'] = bcrypt($request->password);
             $data['type'] = 'chef';
-            $address= User::create($data);
-            return new ChefResource($address);         
+            $chef= User::create($data);
+            return new ChefResource($chef);         
         }else {
            return $validation ;
         }
@@ -111,7 +111,7 @@ class ChefController extends Controller
         $validator = Validator::make($data, [
                 'fname' => 'max:25',
                 'lname' => 'max:25',
-                'email' => [Rule::unique('users')->ignore($che->id),'string','email','max:255'],
+                'email' => [Rule::unique('users')->ignore($chef->id),'string','email','max:255'],
                 'gender' => 'exists:users,gender',
                 'password' => 'string|min:6|max:32',
                 'desc' => 'min:10|max:255',

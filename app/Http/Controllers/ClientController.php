@@ -13,22 +13,30 @@ class ClientController extends Controller
     
     public function store(Request $request)
     {
-        $data = $request->all();
+        $data = $request->except('id', 'type', 'state', 'desc') ;;
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $filename = time() . '.' . $image->getClientOriginalExtension();
             $data['image'] = $filename;
             $destinationPath = public_path('uploads');
+            if( ! in_array($image->getClientOriginalExtension(),['jpg','png','jpeg'])){
+                return response()->json(['message' => 'The image format must be jpg , png , jpeg'], 422);
+            }
             if (!$image->move($destinationPath, $filename)) {
-                return json_encode([
-                    'Error' => 'Error saving the profile image',
-                ]);
+                return response()->json(['message' => 'Error saving the profile image'], 422);
+
             }
         }
-        $data['password'] = bcrypt($request->password);
-        $data['type'] = 'client';
-        $client = User::create($data);
-        return new ClientResource($client);        
+        $validation= $this->_validationStore($data);
+        if( $validation === true){
+
+            $data['password'] = bcrypt($request->password);
+            $data['type'] = 'client';
+            $client= User::create($data);
+            return new ClientResource($client);         
+        }else {
+           return $validation ;
+        }       
     }
 
   
@@ -41,21 +49,30 @@ class ClientController extends Controller
     
     public function update(Request $request, User $client)
     {
-        $data = $request->all();
+        $data = $request->except('id', 'type', 'state', 'desc') ;
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $filename = time() . '.' . $image->getClientOriginalExtension();
             $data['image'] = $filename;
             $destinationPath = public_path('uploads');
-            if (!$image->move($destinationPath, $filename)) {
-                return json_encode(['Error' => 'Error saving the profile image']);
+            if( ! in_array($image->getClientOriginalExtension(),['jpg','png','jpeg'])){
+                return response()->json(['message' => 'The image format must be jpg , png , jpeg'], 422);
             }
+            if (!$image->move($destinationPath, $filename)) {
+                return response()->json(['message' => 'Error saving the profile image'], 422);
+            }
+        }   
+        
+        $validation= $this->_validationUpdate($data,$client);
+        if( $validation === true){
+            if($request->password){
+                $data['password'] = bcrypt($request->password);
+            }
+            $client->update($data);
+            return new ClientResource($client);       
+        }else {
+           return $validation ;
         }
-        if($request->password){
-            $data['password'] = bcrypt($request->password);
-        }
-        $client->update($data);
-        return new ClientResource($client);
     }
 
     public function destroy(User $client)
@@ -71,6 +88,23 @@ class ClientController extends Controller
             'email' => 'required|email|unique:users',
             'gender' => 'required|exists:users,gender',
             'password' => 'required|string|min:6|max:32',
+        ]);
+        if ($validator->fails()) {    
+            return response()->json($validator->errors(), 422);
+        }else {
+            return true;
+        }
+    }
+
+    private function _validationUpdate($data , $client ){
+
+        $validator = Validator::make($data, [
+                'fname' => 'max:25',
+                'lname' => 'max:25',
+                'email' => [Rule::unique('users')->ignore($client->id),'string','email','max:255'],
+                'gender' => 'exists:users,gender',
+                'password' => 'string|min:6|max:32',
+         
         ]);
         if ($validator->fails()) {    
             return response()->json($validator->errors(), 422);
