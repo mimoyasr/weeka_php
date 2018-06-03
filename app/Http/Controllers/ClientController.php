@@ -62,4 +62,22 @@ class ClientController extends Controller
     {
         return json_encode(["status"=>$client->delete()]);
     }
+
+    private function _validationStore($data){
+
+        $validator = Validator::make($data, [
+            'fname' => 'required|max:25',
+            'lname' => 'required|max:25',
+            'email' => 'required|email|unique:users',
+            'gender' => 'required|exists:users,gender',
+            'password' => 'required|string|min:6|max:32',
+        ]);
+        if ($validator->fails()) {    
+            return response()->json($validator->errors(), 422);
+        }else {
+            return true;
+        }
+    }
+
 }
+

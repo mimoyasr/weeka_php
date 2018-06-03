@@ -16,19 +16,25 @@ class InqueryItemController extends Controller
      */
     public function index(Inquery $inquery)
     {
+        // $inquryItems = InqueryItem::where('inquery_id',$inquery->id);
+        // return InqueryItemResource::collection($inqueryItems);
         return InqueryItemResource::collection($inquery->inqueryItems);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Inquery  $inquery
+     * @param  \App\Inquery  $inquerycle
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Inquery $inquery, Request $request)
     {
-        $data = $request->all();
+        $data = $request->except('id', 'user_id');
+        $validation = $this->_validation($data);
+        if ($validation !== true) {
+            return $validation;
+        }
         $data['inquery_id'] = $inquery->id;
         $inqueryItem = InqueryItem::create($data);
         return new InqueryItemResource($inqueryItem);
@@ -63,13 +69,18 @@ class InqueryItemController extends Controller
     public function update(Inquery $inquery, int $inqueryItem_id, Request $request)
     {
         $inqueryItem = InqueryItem::find($inqueryItem_id);
+
         if ($inqueryItem) {
-            $data = $request->all();
+            $data = $request->except('id', 'user_id');
+            $validation = $this->_validation($data);
+            if ($validation !== true) {
+                return $validation;
+            }
             $inqueryItem->update($data);
             return new InqueryItemResource($inqueryItem);
         } else {
             return response()->json(['message' => 'Not Found!'], 404);
-        } 
+        }
     }
 
     /**
@@ -88,4 +99,25 @@ class InqueryItemController extends Controller
             return response()->json(['message' => 'Not Found!'], 404);
         }
     }
+
+    private function _validation($data)
+    {
+
+        $validator = Validator::make($data, [
+
+            'meal_id' => 'required|exists:meals,id',
+            'telephone_id' => 'required|exists:telephones,id',
+            'address_id' => 'required|exists:addresses,id',
+            'inquery_id' => 'required|exists:inqueries,id',
+            'price' => 'required|numeric|min:1|max:6',
+            // check no
+            'quantity' => 'required|integer']);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+        return true;
+
+    }
+
 }

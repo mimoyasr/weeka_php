@@ -29,8 +29,8 @@ class InqueryController extends Controller
      */
     public function index()
     {
-        $Inquerys = Inquery::where('user_id', $this->user->id )->orderBy('id', 'asc')->get();
-        return InqueryResource::collection($Inquerys);
+        $Inqueries = Inquery::where('user_id', $this->user->id )->orderBy('id', 'asc')->get();
+        return InqueryResource::collection($Inqueries);
     }
 
     /**
@@ -40,10 +40,18 @@ class InqueryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $data=$request->all();
-        $inquery= Inquery::create($data);
-        return new InqueryResource($inquery);
+    {   
+
+        $data = $request->except('id', 'user_id');
+        $validation=$this->_validation($data);  
+        if ($validation===true){
+            $data['user_id'] = $this->user->id;
+            $inquery= Inquery::create($data);
+            return new InqueryResource($inquery);
+        }else{
+            return $validation;
+        }
+        
     }
 
     /**
@@ -66,9 +74,15 @@ class InqueryController extends Controller
      */
     public function update(Request $request, Inquery $inquery)
     {
-        $data=$request->all();
-        $inquery->update($data);
-        return new InqueryResource($inquery);
+        $data = $request->except('id', 'user_id');
+        $validation=$this->_validation($data);  
+        if ($validation===true){
+            $inquery->update($data);
+            return new InqueryResource($inquery);
+        }else{
+            return $validation;
+        }
+       
     }
 
     /**
@@ -81,4 +95,24 @@ class InqueryController extends Controller
     {
         return json_encode(['status'=> $address->delete()]);
     }
+
+    private function _validation($data){
+
+      $validator = Validator::make($data, [
+            
+        
+        'telephone_id'=> 'required|exists:telephones,id',
+        'address_id' => 'required|exists:addresses,id',
+        'payment_id' => 'required|exists:payments,id',
+        'state' => 'required|integer|betweeen:-1,0' ]);
+        
+        if ($validator->fails()) {
+                return response()->json($validator->errors(), 422);
+            }
+        return true;
+
+    }
+
+
+
 }
