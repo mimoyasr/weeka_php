@@ -37,7 +37,8 @@ class AddressController extends Controller
         $validation= $this->_validation($data);
         if( $validation === true){
             $data['user_id']=$this->user->id;
-            $user = Address::where('user_id', '=', $this->user->id)->where('name', '=', $request->name)->first();
+            $user = Address::where('user_id', '=', $this->user->id)->where('name', '=', $request->name)->first();    
+            
             if ($user === null) {
                 $address= Address::create($data);
                 return new AddressResource($address);

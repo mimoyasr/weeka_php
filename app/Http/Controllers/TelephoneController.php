@@ -30,9 +30,6 @@ class TelephoneController extends Controller
         if ($validation !== true) {
             return $validation;
         }
-        if (!isset($data['isactive'])) {
-            $data['isactive'] = '0';
-        }
         $data['user_id'] = $this->user->id;
         $tel = Telephone::create($data);
         return new TelephoneResource($tel);
@@ -63,7 +60,8 @@ class TelephoneController extends Controller
     {
         $validator = Validator::make($data, [
             'provider_id' => 'required|exists:providers,id',
-            'number' => ['required', 'digits:8', Rule::unique('telephones')->where(function ($query) use ($data)  {
+            'number' => ['required', 'numeric', 'min:7', 'max:8' ,
+             Rule::unique('telephones')->where(function ($query) use ($data)  {
                 return $query->where('provider_id', $data['provider_id']);
             })],
             'isactive' => 'integer|between:0,1',

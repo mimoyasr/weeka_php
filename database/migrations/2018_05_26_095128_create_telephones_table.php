@@ -16,7 +16,7 @@ class CreateTelephonesTable extends Migration
         Schema::create('telephones', function (Blueprint $table) {
             $table->increments('id');
             $table->string('number');
-            $table->enum('isactive',['0','1']);
+            $table->enum('isactive',['0','1'])->default('0');
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedInteger('provider_id');
