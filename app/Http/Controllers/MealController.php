@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class MealController extends Controller
 {   
-    //TODO meal name must be unique
+    //TODO meal name must be unique ad put user 
     public function store(Request $request)
     {
 

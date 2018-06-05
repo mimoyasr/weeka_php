@@ -26,7 +26,7 @@ class CreateAddressesTable extends Migration
             $table->string('name');
             $table->string('street');
             $table->integer('buildingno');
-            $table->integer('floorno')->nullable()->default(null);
+            $table->string('floorno')->nullable()->default(null);
             $table->integer('flatno')->nullable()->default(null);
             $table->string('notice')->nullable()->default(null);
             $table->timestamps();
