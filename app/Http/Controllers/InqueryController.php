@@ -6,7 +6,7 @@ use App\Inquery;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Resources\InqueryResource;
-
+//بعد الحساب 
 class InqueryController extends Controller
 {
 
@@ -101,10 +101,10 @@ class InqueryController extends Controller
       $validator = Validator::make($data, [
             
         
-        'telephone_id'=> 'required|exists:telephones,id',
-        'address_id' => 'required|exists:addresses,id',
-        'payment_id' => 'required|exists:payments,id',
-        'state' => 'required|integer|betweeen:-1,0' ]);
+        'telephone_id'=> 'exists:telephones,id',
+        'address_id' => 'exists:addresses,id',
+        'payment_id' => 'exists:payments,id',
+        'state' => 'integer|betweeen:-1,0' ]);
         
         if ($validator->fails()) {
                 return response()->json($validator->errors(), 422);

@@ -111,7 +111,7 @@ class ChefController extends Controller
         $validator = Validator::make($data, [
                 'fname' => 'max:25',
                 'lname' => 'max:25',
-                'email' => [Rule::unique('users')->ignore($chef->id),'string','email','max:255'],
+                'email' => [Rule::unique('users')->ignore($chef->id),'string','email'],
                 'gender' => 'exists:users,gender',
                 'password' => 'string|min:6|max:32',
                 'desc' => 'min:10|max:255',

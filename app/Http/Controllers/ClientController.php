@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ClientResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\User;
 
 class ClientController extends Controller
@@ -86,7 +87,7 @@ class ClientController extends Controller
             'fname' => 'required|max:25',
             'lname' => 'required|max:25',
             'email' => 'required|email|unique:users',
-            'gender' => 'required|exists:users,gender',
+            'gender' => 'required|in:male,female',
             'password' => 'required|string|min:6|max:32',
         ]);
         if ($validator->fails()) {    
@@ -101,7 +102,7 @@ class ClientController extends Controller
         $validator = Validator::make($data, [
                 'fname' => 'max:25',
                 'lname' => 'max:25',
-                'email' => [Rule::unique('users')->ignore($client->id),'string','email','max:255'],
+                'email' => [Rule::unique('users')->ignore($client->id),'string','email'],
                 'gender' => 'exists:users,gender',
                 'password' => 'string|min:6|max:32',
          
