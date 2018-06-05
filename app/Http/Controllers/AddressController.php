@@ -87,12 +87,12 @@ class AddressController extends Controller
     private function _validation($data){
 
         $validator = Validator::make($data, [
-            'name' => 'required|max:100',
+            'name' => 'max:100',
             'country_id' => 'exists:countries,id',
             'city_id' => 'exists:cities,id',
             'district_id' => 'required|exists:districts,id',
-            'street' => 'required|max:100',
-            'buildingno' => 'required|min:1|numeric',
+            'street' => 'max:100',
+            'buildingno' => 'min:1|numeric',
             'floorno' => 'min:1',
             'flatno' => 'min:1',
             'notice' => 'max:255',

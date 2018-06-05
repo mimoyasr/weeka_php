@@ -35,4 +35,5 @@ Route::resource('reviews', 'ReviewController')->except(['index', 'edit', 'create
 Route::resource('inqueries.inqueryitems', 'InqueryItemController')->except(['create', 'edit'])->middleware('jwt.auth');
 Route::resource('meals.favs', 'FavController')->only(['show', 'store', 'destroy'])->middleware('jwt.auth');
 Route::resource('chefs.subscribes', 'SubscribeController')->only(['index', 'show', 'store', 'destroy'])->middleware('jwt.auth');
+Route::resource('register', 'RegisterationController')->only(['store']);
 Route::post('login', 'LoginController@login');
