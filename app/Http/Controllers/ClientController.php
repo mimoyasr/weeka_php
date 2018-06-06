@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ClientResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use App\User;
+use App\Telephone;
 
 class ClientController extends Controller
 {
@@ -17,10 +19,14 @@ class ClientController extends Controller
         $data = $request->except('id', 'type', 'state', 'desc','image') ;
         $validation= $this->_validationStore($data);
         if( $validation === true){
-
             $data['password'] = bcrypt($request->password);
             $data['type'] = 'client';
             $client= User::create($data);
+            $telephoneData=[];
+            $telephoneData['user_id']=$client->id;
+            $telephoneData['provider_id'] = $request->provider_id;
+            $telephoneData['number'] = $request->number;
+            $telephone = Telephone::create($telephoneData);
             return new ClientResource($client);         
         }else {
            return $validation ;
@@ -75,6 +81,11 @@ class ClientController extends Controller
             'email' => 'required|email|unique:users',
             'gender' => 'required|in:male,female',
             'password' => 'required|string|min:6|max:32',
+            'provider_id' => 'required|exists:providers,id',
+            'number' => ['required', 'numeric' ,
+             Rule::unique('telephones')->where(function ($query) use ($data)  {
+                return $query->where('provider_id', $data['provider_id']);
+            })],
         ]);
         if ($validator->fails()) {    
             return response()->json($validator->errors(), 422);

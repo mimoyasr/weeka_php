@@ -6,6 +6,8 @@ use App\Inquery;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Resources\InqueryResource;
+use Illuminate\Support\Facades\Validator;
+
 //بعد الحساب 
 class InqueryController extends Controller
 {
