@@ -14,20 +14,7 @@ class ClientController extends Controller
     
     public function store(Request $request)
     {
-        $data = $request->except('id', 'type', 'state', 'desc') ;;
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
-            $data['image'] = $filename;
-            $destinationPath = public_path('uploads');
-            if( ! in_array($image->getClientOriginalExtension(),['jpg','png','jpeg'])){
-                return response()->json(['message' => 'The image format must be jpg , png , jpeg'], 422);
-            }
-            if (!$image->move($destinationPath, $filename)) {
-                return response()->json(['message' => 'Error saving the profile image'], 422);
-
-            }
-        }
+        $data = $request->except('id', 'type', 'state', 'desc','image') ;
         $validation= $this->_validationStore($data);
         if( $validation === true){
 
@@ -47,7 +34,6 @@ class ClientController extends Controller
     }
 
 
-    
     public function update(Request $request, User $client)
     {
         $data = $request->except('id', 'type', 'state', 'desc') ;
