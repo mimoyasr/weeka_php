@@ -6,6 +6,8 @@ use App\Http\Resources\InqueryItemResource;
 use App\Inquery;
 use App\InqueryItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 
 class InqueryItemController extends Controller
 {

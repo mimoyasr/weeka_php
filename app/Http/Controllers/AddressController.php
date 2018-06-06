@@ -88,8 +88,6 @@ class AddressController extends Controller
 
         $validator = Validator::make($data, [
             'name' => 'required|max:100',
-            'country_id' => 'exists:countries,id',
-            'city_id' => 'exists:cities,id',
             'district_id' => 'required|exists:districts,id',
             'street' => 'required|max:100',
             'buildingno' => 'required|min:1|numeric',

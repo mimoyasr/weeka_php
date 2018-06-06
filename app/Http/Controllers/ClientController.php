@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ClientResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use App\User;
+use App\Telephone;
 
 class ClientController extends Controller
 {
@@ -14,26 +16,17 @@ class ClientController extends Controller
     
     public function store(Request $request)
     {
-        $data = $request->except('id', 'type', 'state', 'desc') ;;
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
-            $data['image'] = $filename;
-            $destinationPath = public_path('uploads');
-            if( ! in_array($image->getClientOriginalExtension(),['jpg','png','jpeg'])){
-                return response()->json(['message' => 'The image format must be jpg , png , jpeg'], 422);
-            }
-            if (!$image->move($destinationPath, $filename)) {
-                return response()->json(['message' => 'Error saving the profile image'], 422);
-
-            }
-        }
+        $data = $request->except('id', 'type', 'state', 'desc','image') ;
         $validation= $this->_validationStore($data);
         if( $validation === true){
-
             $data['password'] = bcrypt($request->password);
             $data['type'] = 'client';
             $client= User::create($data);
+            $telephoneData=[];
+            $telephoneData['user_id']=$client->id;
+            $telephoneData['provider_id'] = $request->provider_id;
+            $telephoneData['number'] = $request->number;
+            $telephone = Telephone::create($telephoneData);
             return new ClientResource($client);         
         }else {
            return $validation ;
@@ -47,7 +40,6 @@ class ClientController extends Controller
     }
 
 
-    
     public function update(Request $request, User $client)
     {
         $data = $request->except('id', 'type', 'state', 'desc') ;
@@ -89,6 +81,11 @@ class ClientController extends Controller
             'email' => 'required|email|unique:users',
             'gender' => 'required|in:male,female',
             'password' => 'required|string|min:6|max:32',
+            'provider_id' => 'required|exists:providers,id',
+            'number' => ['required', 'numeric' ,
+             Rule::unique('telephones')->where(function ($query) use ($data)  {
+                return $query->where('provider_id', $data['provider_id']);
+            })],
         ]);
         if ($validator->fails()) {    
             return response()->json($validator->errors(), 422);

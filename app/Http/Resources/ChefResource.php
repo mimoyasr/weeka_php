@@ -16,8 +16,15 @@ class ChefResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => "{$this->fname} {$this->lname}",
+            'fname' => $this->fname,
+            'lname' => $this->lname,
+            'gender' => $this->gender == 'male' ? 'ذكر' : 'انثي',
             'email' => $this->email,
+            'image' => $this->image,
+            'description' => $this->desc,
+            'state' => $this->state,
+            'telephones' => TelephoneResource::collection($this->telephones),
+            'addresses' => AddressResource::collection($this->addresses)
         ];
     }
 }
