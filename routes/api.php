@@ -37,4 +37,8 @@ Route::resource('meals.favs', 'FavController')->only(['show', 'store', 'destroy'
 Route::resource('chefs.subscribes', 'SubscribeController')->only(['index', 'show', 'store', 'destroy'])->middleware('jwt.auth');
 Route::resource('register', 'RegisterationController')->only(['store']);
 Route::post('login', 'LoginController@login');
-Route::post('forgetpassword', 'Auth\ForgotPasswordController@getResetToken');
+// Route::post('forgetpassword', 'Auth\ForgotPasswordController@getResetToken');
+Route::post('forgetpassword', 'ForgotPasswordController@update')->name('forgot.password');
+Route::post('hamada',function(){
+    echo " i am hamada";
+})->name('password.reset');
