@@ -4,26 +4,18 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Address;
+use \JWTAuth as Auth;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests\AddressRequest;
 use App\Http\Resources\AddressResource;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class AddressController extends Controller
 {
-  
-    private $user;
 
-    /**
-     * Instantiate a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->user = User::find(2);
+    public function index(){
+        return AddressResource::collection($this->user->addresses);
     }
 
     public function show(Address $address)

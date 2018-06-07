@@ -22,7 +22,7 @@ Route::resource('inqueries', 'InqueryController')->except(['create', 'edit'])->m
 Route::resource('payments', 'PaymentController')->except(['create', 'edit'])->middleware('jwt.auth');
 Route::resource('schedules', 'ScheduledInqueryController')->only(['index'])->middleware('jwt.auth');
 Route::resource('clients', 'ClientController')->except(['create', 'edit', 'index']);
-Route::resource('addresses', 'AddressController')->except(['edit', 'index'])->middleware('jwt.auth');
+Route::resource('addresses', 'AddressController')->except(['edit'])->middleware('jwt.auth');
 Route::resource('telephones', 'TelephoneController')->except(['create', 'edit', 'index'])->middleware('jwt.auth');
 Route::resource('categories', 'CategoryController')->only(['index', 'show']);
 Route::resource('workinghours', 'WorkingHourController')->except(['create', 'edit'])->middleware('jwt.auth');

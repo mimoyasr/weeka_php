@@ -4,11 +4,10 @@ namespace App\Transformers;
 
 class Json
 {
-    public static function response($data = null, $message = null)
+    public static function response($data = null)
     {
         return [
-            'data'    => $data,
-            'message' => $message,
+            'data'    => $data
         ];
     }
 }
