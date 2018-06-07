@@ -35,11 +35,11 @@ Route::resource('reviews', 'ReviewController')->except(['index', 'edit', 'create
 Route::resource('inqueries.inqueryitems', 'InqueryItemController')->except(['create', 'edit'])->middleware('jwt.auth');
 Route::resource('meals.favs', 'FavController')->only(['show', 'store', 'destroy'])->middleware('jwt.auth');
 Route::resource('chefs.subscribes', 'SubscribeController')->only(['index', 'show', 'store', 'destroy'])->middleware('jwt.auth');
-Route::resource('register', 'RegisterationController')->only(['store']);
 Route::post('login', 'LoginController@login');
 Route::post('forgetpassword', 'ForgotPasswordController@update')->name('forgot.password');
 Route::post('hamada',function(){
     echo " i am hamada";
 })->name('password.reset');
-
 Route::get('home', 'HomeController@index')->name('home');
+Route::resource('menu', 'MenuController')->only(['index']);
+Route::resource('menulogedin', 'MenulogeninController')->only(['index'])->middleware('jwt.auth');

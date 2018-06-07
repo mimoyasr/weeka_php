@@ -15,6 +15,9 @@ class AddressController extends Controller
 {
 
     public function index(){
+
+        // dd( $this->user ? $this->user->fname : null );
+
         return AddressResource::collection($this->user->addresses);
     }
 

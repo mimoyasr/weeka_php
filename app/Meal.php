@@ -40,7 +40,7 @@ class Meal extends Model
    }
 
    public function inqueryItems(){
-    return $this->hasMany(Inquery_item::class);
+    return $this->hasMany(InqueryItem::class);
 }
 
 }
