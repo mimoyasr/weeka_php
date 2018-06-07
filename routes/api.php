@@ -22,7 +22,7 @@ Route::resource('inqueries', 'InqueryController')->except(['create', 'edit'])->m
 Route::resource('payments', 'PaymentController')->except(['create', 'edit'])->middleware('jwt.auth');
 Route::resource('schedules', 'ScheduledInqueryController')->only(['index'])->middleware('jwt.auth');
 Route::resource('clients', 'ClientController')->except(['create', 'edit', 'index']);
-Route::resource('addresses', 'AddressController')->except(['edit', 'index'])->middleware('jwt.auth');
+Route::middleware('jwt.auth')->resource('addresses', 'AddressController')->except(['edit']);
 Route::resource('telephones', 'TelephoneController')->except(['create', 'edit', 'index'])->middleware('jwt.auth');
 Route::resource('categories', 'CategoryController')->only(['index', 'show']);
 Route::resource('workinghours', 'WorkingHourController')->except(['create', 'edit'])->middleware('jwt.auth');
@@ -37,7 +37,6 @@ Route::resource('meals.favs', 'FavController')->only(['show', 'store', 'destroy'
 Route::resource('chefs.subscribes', 'SubscribeController')->only(['index', 'show', 'store', 'destroy'])->middleware('jwt.auth');
 Route::resource('register', 'RegisterationController')->only(['store']);
 Route::post('login', 'LoginController@login');
-// Route::post('forgetpassword', 'Auth\ForgotPasswordController@getResetToken');
 Route::post('forgetpassword', 'ForgotPasswordController@update')->name('forgot.password');
 Route::post('hamada',function(){
     echo " i am hamada";

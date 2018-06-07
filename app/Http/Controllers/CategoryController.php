@@ -15,7 +15,6 @@ class CategoryController extends Controller
     public function index()
     {
         $Cats = Category::all();
-        // return $Cats;
         return CategoryResource::collection($Cats);
     }
 
