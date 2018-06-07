@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Http\Resources\ChefResource;
 use App\User;
 use App\Telephone;

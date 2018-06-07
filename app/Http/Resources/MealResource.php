@@ -23,7 +23,8 @@ class MealResource extends JsonResource
             'price' => $this->price,
             'preparation_time' => $this->preparation_time,
             'description' => $this->desc,
-            'reviews' => ReviewResource::collection($this->reviews)
+            'reviews' => ReviewResource::collection($this->reviews),
+            'average' => $this->average
         ];
     }
 }
