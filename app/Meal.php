@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Meal extends Model
 {
+    use Sluggable;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -13,7 +16,7 @@ class Meal extends Model
      */
     protected $fillable = [
         'name',
-        'chef_id', 
+        'chef_id',
         'category_id',
         'image',
         'preparation_time',
@@ -35,12 +38,27 @@ class Meal extends Model
     {
         return $this->hasMany(Review::class);
     }
-   public function favs(){
-       return $this->hasMany(Fav::class);
-   }
+    public function favs()
+    {
+        return $this->hasMany(Fav::class);
+    }
 
-   public function inqueryItems(){
-    return $this->hasMany(InqueryItem::class);
-}
+    public function inqueryItems()
+    {
+        return $this->hasMany(InqueryItem::class);
+    }
 
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'name',
+            ],
+        ];
+    }
 }

@@ -87,9 +87,9 @@ class MealController extends Controller
             'name' => 'required|string|min:2|max:10',
             'chef_id' => 'required|exists:users,id',
             'category_id' => 'required|exists:categories,id',
-            'price' => 'required|numeric|min:1|max:6',
+            'price' => 'required|numeric|min:1|max:500',
             'preparation_time' => 'required|numeric',
-            'description' => 'required|string',
+            'desc' => 'required|string',
             
             ]);
 

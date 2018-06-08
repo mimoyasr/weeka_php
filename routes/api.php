@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Meal;
+use App\Http\Resources\MealResource;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,33 +15,41 @@ use Illuminate\Http\Request;
 |
  */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+ Route::get('meal/{slug}',function($slug){
+    $meal = Meal::where('slug', $slug)->first();
+    if ($meal){
+        return new MealResource($meal);
+    }else{
+        return response()->json(['message' => 'Not Found!'], 404);
+    }
+ });
 
-Route::resource('chefs', 'ChefController')->except(['create', 'edit']);
-Route::resource('inqueries', 'InqueryController')->except(['create', 'edit'])->middleware('jwt.auth');
-Route::resource('payments', 'PaymentController')->except(['create', 'edit'])->middleware('jwt.auth');
-Route::resource('schedules', 'ScheduledInqueryController')->only(['index'])->middleware('jwt.auth');
-Route::resource('clients', 'ClientController')->except(['create', 'edit', 'index']);
-Route::resource('addresses', 'AddressController')->except(['edit'])->middleware('jwt.auth');
-Route::resource('telephones', 'TelephoneController')->except(['create', 'edit', 'index'])->middleware('jwt.auth');
-Route::resource('categories', 'CategoryController')->only(['index', 'show']);
-Route::resource('workinghours', 'WorkingHourController')->except(['create', 'edit'])->middleware('jwt.auth');
-Route::resource('meals', 'MealController')->except(['index', 'edit', 'create']);
-Route::resource('cities', 'CityController')->only(['index']);
+
 Route::resource('countries', 'CountryController')->only(['index']);
 Route::resource('districts', 'DistrictController')->only(['index']);
 Route::resource('providers', 'ProviderController')->only(['index']);
-Route::resource('reviews', 'ReviewController')->except(['index', 'edit', 'create'])->middleware('jwt.auth');
-Route::resource('inqueries.inqueryitems', 'InqueryItemController')->except(['create', 'edit'])->middleware('jwt.auth');
-Route::resource('meals.favs', 'FavController')->only(['show', 'store', 'destroy'])->middleware('jwt.auth');
-Route::resource('chefs.subscribes', 'SubscribeController')->only(['index', 'show', 'store', 'destroy'])->middleware('jwt.auth');
+Route::resource('home', 'HomeController@index')->only(['index']);
+Route::resource('menu', 'MenuController')->only(['index']);
+Route::resource('chefs', 'ChefController')->except(['create', 'edit']);
+Route::resource('clients', 'ClientController')->except(['create', 'edit', 'index']);
+Route::resource('meals', 'MealController')->except(['index', 'edit', 'create']);
+Route::resource('cities', 'CityController')->only(['index']);
+Route::resource('categories', 'CategoryController')->only(['index', 'show']);
 Route::post('login', 'LoginController@login');
 Route::post('forgetpassword', 'ForgotPasswordController@update')->name('forgot.password');
-Route::post('hamada',function(){
+Route::post('hamada', function () {
     echo " i am hamada";
 })->name('password.reset');
-Route::get('home', 'HomeController@index')->name('home');
-Route::resource('menu', 'MenuController')->only(['index']);
-Route::resource('menulogedin', 'MenulogeninController')->only(['index'])->middleware('jwt.auth');
+
+Route::middleware('jwt.auth')->group(function () {
+    Route::resource('inqueries', 'InqueryController')->except(['create', 'edit']);
+    Route::resource('inqueries.inqueryitems', 'InqueryItemController')->except(['create', 'edit']);
+    Route::resource('payments', 'PaymentController')->except(['create', 'edit']);
+    Route::resource('schedules', 'ScheduledInqueryController')->only(['index']);
+    Route::resource('addresses', 'AddressController')->except(['edit']);
+    Route::resource('telephones', 'TelephoneController')->except(['create', 'edit', 'index']);
+    Route::resource('workinghours', 'WorkingHourController')->except(['create', 'edit']);
+    Route::resource('reviews', 'ReviewController')->except(['index', 'edit', 'create']);
+    Route::resource('meals.favs', 'FavController')->only(['show', 'store', 'destroy']);
+    Route::resource('chefs.subscribes', 'SubscribeController')->only(['index', 'show', 'store', 'destroy']);
+});
