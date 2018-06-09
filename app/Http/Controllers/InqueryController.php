@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\InqueryResource;
 use App\Inquery;
 use App\User;
 use Illuminate\Http\Request;
-use App\Http\Resources\InqueryResource;
 use Illuminate\Support\Facades\Validator;
 
-//بعد الحساب 
+//بعد الحساب
 class InqueryController extends Controller
 {
-
     private $user;
 
-      /**
+    /**
      * Instantiate a new controller instance.
      *
      * @return void
@@ -31,7 +30,7 @@ class InqueryController extends Controller
      */
     public function index()
     {
-        $Inqueries = Inquery::where('user_id', $this->user->id )->orderBy('id', 'asc')->get();
+        $Inqueries = Inquery::where('user_id', $this->user->id)->orderBy('id', 'asc')->get();
         return InqueryResource::collection($Inqueries);
     }
 
@@ -42,18 +41,16 @@ class InqueryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
-
+    {
         $data = $request->except('id', 'user_id');
-        $validation=$this->_validation($data);  
-        if ($validation===true){
+        $validation = $this->_validation($data);
+        if ($validation === true) {
             $data['user_id'] = $this->user->id;
-            $inquery= Inquery::create($data);
+            $inquery = Inquery::create($data);
             return new InqueryResource($inquery);
-        }else{
+        } else {
             return $validation;
         }
-        
     }
 
     /**
@@ -77,14 +74,13 @@ class InqueryController extends Controller
     public function update(Request $request, Inquery $inquery)
     {
         $data = $request->except('id', 'user_id');
-        $validation=$this->_validation($data);  
-        if ($validation===true){
+        $validation = $this->_validation($data);
+        if ($validation === true) {
             $inquery->update($data);
             return new InqueryResource($inquery);
-        }else{
+        } else {
             return $validation;
         }
-       
     }
 
     /**
@@ -95,26 +91,20 @@ class InqueryController extends Controller
      */
     public function destroy(Inquery $inquery)
     {
-        return json_encode(['status'=> $address->delete()]);
+        return json_encode(['status' => $address->delete()]);
     }
 
-    private function _validation($data){
+    private function _validation($data)
+    {
+        $validator = Validator::make($data, [
+            'telephone_id' => 'exists:telephones,id',
+            'address_id' => 'exists:addresses,id',
+            'payment_id' => 'exists:payments,id',
+            'state' => 'integer|betweeen:-1,0']);
 
-      $validator = Validator::make($data, [
-            
-        
-        'telephone_id'=> 'exists:telephones,id',
-        'address_id' => 'exists:addresses,id',
-        'payment_id' => 'exists:payments,id',
-        'state' => 'integer|betweeen:-1,0' ]);
-        
         if ($validator->fails()) {
-                return response()->json($validator->errors(), 422);
-            }
+            return response()->json($validator->errors(), 422);
+        }
         return true;
-
     }
-
-
-
 }
