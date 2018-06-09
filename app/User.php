@@ -63,6 +63,10 @@ class User extends Authenticatable
         return "{$this->fname} {$this->lname}";
     }
 
+    public function workinghours() {
+        return $this->hasMany(WorkingHour::class);
+    }
+
     /**
      * Return the sluggable configuration array for this model.
      *

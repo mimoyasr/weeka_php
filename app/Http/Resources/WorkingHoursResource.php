@@ -15,7 +15,7 @@ class WorkingHoursResource extends JsonResource
     public function toArray($request)
     {
         return  [
-            'chef_id'=> $this->chef_id,
+            'chef_id'=> $this->user_id,
             'from_hour'=> $this->from_hour,
             'from_min'=> $this->from_min,
             'from_period'=> $this->from_period,
