@@ -18,10 +18,10 @@ class CreatePaymentsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->enum('type',['Cash','Credit Card']);
-            $table->string('card_no');
-            $table->string('exp');
-            $table->string('cvv');
-            $table->string('card_holder_name');
+            $table->string('card_no')->nullable()->default(null);
+            $table->string('exp')->nullable()->default(null);
+            $table->string('cvv')->nullable()->default(null);
+            $table->string('card_holder_name')->nullable()->default(null);
             $table->timestamps();
         });
     }

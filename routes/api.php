@@ -15,24 +15,14 @@ use App\Http\Resources\MealResource;
 |
  */
 
- Route::get('meal/{slug}',function($slug){
-    $meal = Meal::where('slug', $slug)->first();
-    if ($meal){
-        return new MealResource($meal);
-    }else{
-        return response()->json(['message' => 'Not Found!'], 404);
-    }
- });
-
-
 Route::resource('countries', 'CountryController')->only(['index']);
 Route::resource('districts', 'DistrictController')->only(['index']);
 Route::resource('providers', 'ProviderController')->only(['index']);
 Route::resource('home', 'HomeController@index')->only(['index']);
-Route::resource('menu', 'MenuController')->only(['index']);
+Route::resource('menu', 'MenuController')->only(['index','show']);
 Route::resource('chefs', 'ChefController')->except(['create', 'edit']);
 Route::resource('clients', 'ClientController')->except(['create', 'edit', 'index']);
-Route::resource('meals', 'MealController')->except(['index', 'edit', 'create']);
+Route::resource('meals', 'MealController')->except(['index', 'edit', 'create','show']);
 Route::resource('cities', 'CityController')->only(['index']);
 Route::resource('categories', 'CategoryController')->only(['index', 'show']);
 Route::post('login', 'LoginController@login');

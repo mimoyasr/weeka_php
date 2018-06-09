@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 
 class MealController extends Controller
 {   
-    //TODO meal name must be unique ad put user 
+    
     public function store(Request $request)
     {
 
@@ -39,11 +39,6 @@ class MealController extends Controller
         } 
     }
 
-   
-    public function show(Meal $meal)
-    {
-        return new MealResource($meal);
-    }
 
      
     public function update(Request $request, Meal $meal)
@@ -84,7 +79,7 @@ class MealController extends Controller
 
         $validator = Validator::make($data, [
 
-            'name' => 'required|string|min:2|max:10',
+            'name' => 'required|unique|string|min:2|max:10',
             'chef_id' => 'required|exists:users,id',
             'category_id' => 'required|exists:categories,id',
             'price' => 'required|numeric|min:1|max:500',

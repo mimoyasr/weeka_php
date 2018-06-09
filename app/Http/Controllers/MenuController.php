@@ -39,4 +39,17 @@ class MenuController extends Controller
            
     }
     
+    public function show($slug){
+
+        $mealAverage=Meal::join('reviews', 'meals.id', '=', 'reviews.meal_id')->
+                        where('slug',$slug)->
+                        selectRaw('meals.id ,meals.*')->
+                        selectRaw(" avg(rate) AS average ")->
+                        groupBy('meal_id')->
+                        get();
+
+       return $mealAverage;
+        return new MenuResource($mealAverage);
+
+    }
 }

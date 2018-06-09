@@ -27,6 +27,10 @@ class ClientController extends Controller
             $telephoneData['provider_id'] = $request->provider_id;
             $telephoneData['number'] = $request->number;
             $telephone = Telephone::create($telephoneData);
+            $paymentMethod=[];
+            $paymentMethod['user_id']=$client->id;
+            $paymentMethod['type']='Cash';
+            $payment= Payment::create($paymentMethod);
             return new ClientResource($client);         
         }else {
            return $validation ;
