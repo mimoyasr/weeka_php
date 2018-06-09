@@ -25,7 +25,7 @@ class MenuResource extends JsonResource
             'preparation_time' => $this->preparation_time,
             'description' => $this->desc,
             'rate' => $this->rate,
-            'district_id' => $this->chef->addresses[0]->district->id,
+            // 'district_id' => $this->chef->addresses[0]->district->id,
             'number of orders' => count($this->inqueryItems),
             'reviews' => ReviewResource::collection($this->reviews),
         ];

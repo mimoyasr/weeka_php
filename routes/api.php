@@ -13,12 +13,12 @@ use App\Http\Resources\MealResource;
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
 |
- */
+ */\
 
 Route::resource('countries', 'CountryController')->only(['index']);
 Route::resource('districts', 'DistrictController')->only(['index']);
 Route::resource('providers', 'ProviderController')->only(['index']);
-Route::resource('home', 'HomeController@index')->only(['index']);
+Route::resource('home', 'HomeController')->only(['index']);
 Route::resource('menu', 'MenuController')->only(['index','show']);
 Route::resource('chefs', 'ChefController')->except(['create', 'edit']);
 Route::resource('clients', 'ClientController')->except(['create', 'edit', 'index']);
