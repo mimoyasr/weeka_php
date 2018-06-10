@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class StatisticsController extends Controller
 {
     /**
@@ -13,7 +11,15 @@ class StatisticsController extends Controller
      */
     public function index()
     {
-        echo "hello world!";
+        $ret = [] ;
+        $total = $this->user->reduce(function ($carry, $item) {
+            return $carry + count($item->inqueryItems);
+        });
+
+        $ret['total'] = $total;
+
+        return response()->json($ret);
+
     }
 
 }
