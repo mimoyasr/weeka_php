@@ -42,4 +42,5 @@ Route::middleware('jwt.auth')->group(function () {
     Route::resource('reviews', 'ReviewController')->except(['index', 'edit', 'create']);
     Route::resource('meals.favs', 'FavController')->only(['show', 'store', 'destroy']);
     Route::resource('chefs.subscribes', 'SubscribeController')->only(['index', 'show', 'store', 'destroy']);
+    Route::resource('chefs.statistics', 'StatisticsController')->only(['index']);
 });
