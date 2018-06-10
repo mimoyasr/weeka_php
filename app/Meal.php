@@ -26,7 +26,7 @@ class Meal extends Model
 
     public function chef()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'chef_id','id');
     }
 
     public function category()

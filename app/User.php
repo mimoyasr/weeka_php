@@ -68,7 +68,7 @@ class User extends Authenticatable
     }
 
     public function meals() {
-        return $this->hasMany(Meal::class);
+        return $this->hasMany(Meal::class,'chef_id','id');
     }
 
     /**
