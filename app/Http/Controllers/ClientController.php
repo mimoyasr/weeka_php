@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use App\User;
 use App\Telephone;
+use App\Payment;
 
 class ClientController extends Controller
 {
