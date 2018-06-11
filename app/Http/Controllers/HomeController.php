@@ -32,7 +32,7 @@ class HomeController extends Controller
                         select('meals.*')->
                         selectRaw(" avg(rate) AS rate ")->
                         groupBy('meal_id')->
-                        orderBy('average', 'desc')->
+                        orderBy('rate', 'desc')->
                         limit(4)->
                         get();
         
