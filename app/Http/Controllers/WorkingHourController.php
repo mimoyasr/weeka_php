@@ -11,18 +11,6 @@ use Illuminate\Support\Facades\Validator;
 class WorkingHourController extends Controller
 {
 
-    private $user;
-
-    /**
-     * Instantiate a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->user = User::find(2);
-    }
-
     public function index()
     {
         $data = WorkingHour::all();

@@ -10,17 +10,6 @@ use Illuminate\Support\Facades\Validator;
 
 class ReviewController extends Controller
 {
-    private $user;
-
-    /**
-     * Instantiate a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->user = User::find(2);
-    }
 
     public function store(Request $request)
     {

@@ -10,17 +10,6 @@ use Illuminate\Http\Request;
 
 class FavController extends Controller
 {
-    private $user;
-
-    /**
-     * Instantiate a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->user = User::find(2);
-    }
 
     /**
      * Store a newly created resource in storage.
