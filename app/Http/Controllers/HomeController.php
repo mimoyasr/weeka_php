@@ -30,7 +30,7 @@ class HomeController extends Controller
 
         $mealAverage=Meal::join('reviews', 'meals.id', '=', 'reviews.meal_id')->
                         select('meals.*')->
-                        selectRaw(" avg(rate) AS average ")->
+                        selectRaw(" avg(rate) AS rate ")->
                         groupBy('meal_id')->
                         orderBy('average', 'desc')->
                         limit(4)->
