@@ -9,6 +9,7 @@ use App\User;
 use App\Meal;
 use App\Review;
 use App\District;
+use App\Http\Resources\MenuResource;
 
 class HomeController extends Controller
 {
@@ -36,7 +37,7 @@ class HomeController extends Controller
                         get();
         
         return [
-            'meals' => MealResource::collection($mealAverage),
+            'meals' => MenuResource::collection($mealAverage),
             'districts' => DistrictResource::collection($districts)
         ];
     }
