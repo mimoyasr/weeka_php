@@ -71,6 +71,10 @@ class User extends Authenticatable
         return $this->hasMany(Meal::class,'chef_id','id');
     }
 
+    public function favs() {
+        return $this->hasMany(Fav::class);
+    }
+
     /**
      * Return the sluggable configuration array for this model.
      *
