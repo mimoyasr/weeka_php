@@ -22,6 +22,7 @@ class MenuResource extends JsonResource
             'chef_id' => $this->chef->id,
             'image' => $this->image,
             'category_id' => $this->category_id,
+            'category_name' => $this->category->name,
             'price' => $this->price,
             'preparation_time' => $this->preparation_time,
             'slug' => $this->slug,
