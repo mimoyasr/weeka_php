@@ -32,6 +32,7 @@ Route::post('hamada', function () {
 })->name('password.reset');
 
 Route::middleware('jwt.auth')->group(function () {
+    Route::resource('profile', 'ProfileController')->only(['index']);
     Route::resource('inqueries', 'InqueryController')->except(['create', 'edit']);
     Route::resource('inqueries.inqueryitems', 'InqueryItemController')->except(['create', 'edit']);
     Route::resource('payments', 'PaymentController')->except(['create', 'edit']);

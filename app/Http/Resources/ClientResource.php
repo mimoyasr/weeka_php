@@ -22,7 +22,9 @@ class ClientResource extends JsonResource
             'email' => $this->email,
             'image' => $this->image,
             'telephones' => TelephoneResource::collection($this->telephones),
-            'addresses' => AddressResource::collection($this->addresses)
+            'addresses' => AddressResource::collection($this->addresses),
+            'inqueries' => InqueryResource::collection($this->inqueries),
+            'favs' => FavResource::collection($this->favs)
         ];
 
     }

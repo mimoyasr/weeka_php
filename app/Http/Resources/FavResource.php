@@ -16,6 +16,7 @@ class FavResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'meal_id' => $this->meal->id
         ];
     }
 }
