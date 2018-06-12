@@ -64,8 +64,17 @@ class ChefController extends Controller
 
         $validation = $this->_validationUpdate($data, $chef);
         if ($validation === true) {
-            if ($request->password) {
-                $data['password'] = bcrypt($request->password);
+            if ($request->password && $request->old_password) {
+                if($this->password == bcrypt($request->old_password)){
+                    $data['password'] = bcrypt($request->password);
+                }else {
+                    return response()->json(['old_password' => 'Old password is invalid.'], 422);
+
+                }
+
+                // $data['password'] = bcrypt($request->password);
+            }else{
+                return response()->json(['old_password' => 'Old password is required.'], 422);
             }
             $chef->update($data);
             return new ChefResource($chef);

@@ -15,8 +15,10 @@ class MenuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(District $district)
+    public function index(string $district_slug)
     {
+
+        $district = District::where('slug', $district_slug)->first();
         $menu = Meal::join('users', 'users.id', '=', 'meals.chef_id')->
             join('reviews', 'meals.id', '=', 'reviews.meal_id')->
             join('addresses', 'users.id', '=', 'addresses.user_id')->

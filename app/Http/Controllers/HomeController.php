@@ -27,7 +27,6 @@ class HomeController extends Controller
     public function index()
     {
         // $districts = District::all();
-
         $mealAverage=Meal::join('reviews', 'meals.id', '=', 'reviews.meal_id')->
                         select('meals.*')->
                         selectRaw(" avg(rate) AS rate ")->
