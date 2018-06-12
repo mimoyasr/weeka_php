@@ -6,6 +6,7 @@ use App\Fav;
 use App\Http\Resources\MenuResource;
 use App\Meal;
 use App\User;
+use App\District;
 
 class MenuController extends Controller
 {
@@ -14,12 +15,13 @@ class MenuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(District $district)
     {
         $menu = Meal::join('users', 'users.id', '=', 'meals.chef_id')->
             join('reviews', 'meals.id', '=', 'reviews.meal_id')->
             join('addresses', 'users.id', '=', 'addresses.user_id')->
             join('districts', 'districts.id', '=', 'addresses.district_id')->
+            where('district_id',$district->id)->
             selectRaw('meals.*, avg(reviews.rate) AS rate ')->
             groupBy('reviews.meal_id')->
             paginate(5);

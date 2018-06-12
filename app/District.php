@@ -3,13 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class District extends Model
 {
    
     protected $fillable = [
         'name',
-        'city_id' ];
+        'city_id'
+    ];
 
 
     public function city(){

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\MealResource;
 use App\Meal;
+use App\Review;
 
 class StatisticsController extends Controller
 {
@@ -57,11 +58,12 @@ class StatisticsController extends Controller
 
         $worstMeals = MealResource::collection($worstMeals);
         $ret['worst_meals'] = $worstMeals;
-        $review = Review::join('meals', 'meals.id', '=', 'reviews.meal_id')->
+        $reviews = Review::join('meals', 'meals.id', '=', 'reviews.meal_id')->
             select('reviews.*')->
             where('meals.chef_id', $this->user->id)->
             get();
-        return $review;
-        // return response()->json($ret);
+        // return $;
+        $ret['reviews'] = $reviews;
+        return response()->json($ret);
     }
 }
