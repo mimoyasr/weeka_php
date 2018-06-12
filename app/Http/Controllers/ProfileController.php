@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Resources\ChefResource;
 use App\Http\Resources\ClientResource;
 
@@ -15,11 +14,6 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        if($this->user->type == 'chef'){
-            return new ChefResource($this->user);
-        }else{
-            return new ClientResource($this->user);
-        }
+        return $this->user->type == 'chef' ? new ChefResource($this->user) : new ClientResource($this->user);
     }
-
 }
