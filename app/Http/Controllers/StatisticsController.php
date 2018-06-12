@@ -54,8 +54,14 @@ class StatisticsController extends Controller
             orderBy('average', 'asc')->
             limit(4)->
             get();
+
         $worstMeals = MealResource::collection($worstMeals);
         $ret['worst_meals'] = $worstMeals;
-        return response()->json($ret);
+        $review = Review::join('meals', 'meals.id', '=', 'reviews.meal_id')->
+            select('reviews.*')->
+            where('meals.chef_id', $this->user->id)->
+            get();
+        return $review;
+        // return response()->json($ret);
     }
 }
