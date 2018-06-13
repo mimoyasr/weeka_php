@@ -20,7 +20,7 @@ Route::resource('districts', 'DistrictController')->only(['index']);
 Route::resource('providers', 'ProviderController')->only(['index']);
 Route::resource('districts.menu', 'MenuController')->only(['index','show']);
 Route::resource('home', 'HomeController')->only(['index']);
-Route::resource('chefs', 'ChefController')->except(['create', 'edit']);
+Route::resource('chefs', 'ChefController')->except(['create', 'edit','index']);
 Route::resource('clients', 'ClientController')->except(['create', 'edit', 'index']);
 Route::resource('meals', 'MealController')->except(['index', 'edit', 'create','show']);
 Route::resource('cities', 'CityController')->only(['index']);

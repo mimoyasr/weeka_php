@@ -22,12 +22,14 @@ class MealResource extends JsonResource
             'chef_id' => $this->chef->id,
             'image' => $this->image,
             'category_id' => $this->category_id,
+            'category_name' => $this->category->name,
             'price' => $this->price,
             'preparation_time' => $this->preparation_time,
             'slug' => $this->slug,
             'description' => $this->desc,
             // 'reviews' => ReviewResource::collection($this->reviews),
-            'average' => $this->average
+            'average' => $this->average,
+            'rate' => $this->rate,
         ];
     }
 }

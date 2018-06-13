@@ -48,6 +48,13 @@ class Meal extends Model
         return $this->hasMany(InqueryItem::class);
     }
 
+    public function getRateAttribute()
+    {
+        return $this->reviews->reduce(function ($carry, $review) {
+            return $carry + $review->rate;
+        }) / count($this->reviews);
+    }
+
     /**
      * Return the sluggable configuration array for this model.
      *

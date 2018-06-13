@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use App\Http\Resources\ChefProfileResource;
 
 class ChefController extends Controller
 {
@@ -20,12 +21,6 @@ class ChefController extends Controller
     public function __construct()
     {
         $this->middleware('jwt.auth')->only(['update', 'destroy']);
-    }
-
-    public function index()
-    {
-        $Chefs = User::where('type', 'chef')->orderBy('fname', 'asc')->get();
-        return ChefResource::collection($Chefs);
     }
 
     public function store(Request $request)
@@ -53,7 +48,15 @@ class ChefController extends Controller
 
     public function show(User $chef)
     {
-        return new ChefResource($chef);
+        $numOfOrders = $chef->meals->reduce(function ($carry, $meal) {
+            return $carry + count($meal->inqueryItems);
+        });
+        $rate = $chef->meals->reduce(function ($carry, $meal) {
+            return $carry + $meal->rate;
+        }) / count($chef->meals);
+        $chef['no_of_orders'] = $numOfOrders;
+        $chef['rate'] = $rate;
+        return new ChefProfileResource($chef);
     }
 
     public function update(User $chef, Request $request)
