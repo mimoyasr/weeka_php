@@ -29,6 +29,7 @@ class MealResource extends JsonResource
             'description' => $this->desc,
             // 'reviews' => ReviewResource::collection($this->reviews),
             'average' => $this->average,
+            'state' => $this->state ? true : false,
             'rate' => $this->rate,
         ];
     }
