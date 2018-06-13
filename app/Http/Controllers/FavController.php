@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Fav;
 use App\Http\Resources\FavResource;
 use App\Meal;

@@ -28,6 +28,7 @@ class MenuResource extends JsonResource
             'slug' => $this->slug,
             'description' => $this->desc,
             'rate' => $this->rate,
+            'state' => $this->state,
             'district_id' => $this->chef->addresses[0]->district->id,
             'numbers_of_orders' => count($this->inqueryItems),
             'reviews' => ReviewResource::collection($this->reviews),

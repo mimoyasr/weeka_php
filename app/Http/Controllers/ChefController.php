@@ -12,6 +12,16 @@ use Illuminate\Validation\Rule;
 
 class ChefController extends Controller
 {
+    /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('jwt.auth')->only(['update', 'destroy']);
+    }
+
     public function index()
     {
         $Chefs = User::where('type', 'chef')->orderBy('fname', 'asc')->get();
@@ -64,18 +74,20 @@ class ChefController extends Controller
 
         $validation = $this->_validationUpdate($data, $chef);
         if ($validation === true) {
-            if ($request->password && $request->old_password) {
-                if($this->password == bcrypt($request->old_password)){
-                    $data['password'] = bcrypt($request->password);
-                }else {
-                    return response()->json(['old_password' => 'Old password is invalid.'], 422);
-
+            if ($request->password) {
+                if ($request->old_password) {
+                    if (password_verify($request->old_password, $chef->password)) {
+                        $data['password'] = bcrypt($request->password);
+                        $chef->update($data);
+                        return response()->json(['message' => 'password changed.']);
+                    } else {
+                        return response()->json(['old_password' => 'Old password is invalid.'], 422);
+                    }
+                } else {
+                    return response()->json(['old_password' => 'Old password is required.'], 422);
                 }
-
-                // $data['password'] = bcrypt($request->password);
-            }else{
-                return response()->json(['old_password' => 'Old password is required.'], 422);
             }
+
             $chef->update($data);
             return new ChefResource($chef);
         } else {
