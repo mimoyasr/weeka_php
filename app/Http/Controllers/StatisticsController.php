@@ -62,7 +62,6 @@ class StatisticsController extends Controller
             select('reviews.*')->
             where('meals.chef_id', $this->user->id)->
             get();
-        // return $;
         $ret['reviews'] = $reviews;
         return response()->json($ret);
     }
