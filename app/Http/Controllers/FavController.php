@@ -25,6 +25,8 @@ class FavController extends Controller
             $data['user_id'] = $this->user->id;
             $data['meal_id'] = $meal->id;
             $fav = Fav::create($data);
+        }else{
+            return response()->json(['status' => $fav->delete()]);
         }
         return new FavResource($fav);
 
