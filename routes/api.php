@@ -16,7 +16,7 @@ use App\Http\Resources\MealResource;
  */
 
 Route::get('menu/{slug}',function(string $slug){
-    app('App\Http\Controllers\MenuController')->show("hamada", $slug);
+    return app('App\Http\Controllers\MenuController')->show("hamada", $slug);
 });
 Route::resource('countries', 'CountryController')->only(['index']);
 Route::resource('districts', 'DistrictController')->only(['index']);
