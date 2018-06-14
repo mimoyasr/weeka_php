@@ -19,7 +19,7 @@ class ClientController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth.client')->only(['update', 'destroy']);
+        $this->middleware('authclient')->only(['update', 'destroy']);
     }
 
     public function store(Request $request)
