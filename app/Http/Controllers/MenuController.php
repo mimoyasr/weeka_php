@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\District;
 use App\Fav;
 use App\Http\Resources\MenuResource;
+use App\Inquery;
 use App\Meal;
 use App\User;
 
@@ -31,6 +32,11 @@ class MenuController extends Controller
             $menu->map(function ($meal) use ($user) {
                 $meal['fav'] = Fav::where('user_id', $user->id)->where('meal_id', $meal->id)->first() ? true : false;
             });
+            $menu->map(function ($meal) use ($user) {
+                $meal['state'] = Inquery::join('inquery_items', 'inqueries.id', '=', 'inquery_items.inquery_id')->
+                    where('inqueries.user_id', $user->id)->
+                    where('inquery_items.meal_id', $meal->id)->first() ? true : false;
+            });
         }
 
         return MenuResource::collection($menu);
@@ -48,6 +54,9 @@ class MenuController extends Controller
             $mealAverage['fav'] = Fav::where('user_id', $this->user->id)
                 ->where('meal_id', $mealAverage->id)
                 ->first() ? true : false;
+            $mealAverage['state'] = Inquery::join('inquery_items', 'inqueries.id', '=', 'inquery_items.inquery_id')->
+                where('inqueries.user_id', $user->id)->
+                where('inquery_items.meal_id', $mealAverage->id)->first() ? true : false;
         }
         return new MenuResource($mealAverage);
     }

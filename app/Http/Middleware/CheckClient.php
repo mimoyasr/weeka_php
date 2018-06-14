@@ -18,7 +18,6 @@ class CheckClient
     {
         if (Auth::getToken()) {
             $user = Auth::toUser(Auth::getToken());
-            echo " i am here {$user->type}";
             if ($user->type === 'client') {
                 return $next($request);
             } else {

@@ -3,7 +3,6 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Review;
 
 class MenuResource extends JsonResource
 {
@@ -38,6 +37,12 @@ class MenuResource extends JsonResource
             $ret['fav'] = $this->fav;
         } else {
             $ret['fav'] = false;
+        }
+
+        if ($this->state) {
+            $ret['state'] = $this->state;
+        } else {
+            $ret['state'] = false;
         }
 
         return $ret;
