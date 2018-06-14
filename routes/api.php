@@ -28,7 +28,7 @@ Route::resource('categories', 'CategoryController')->only(['index', 'show']);
 Route::post('login', 'LoginController@login');
 Route::post('forgetpassword', 'ForgotPasswordController@update')->name('forgot.password');
 Route::get('menu/{slug}',function(string $slug){
-    app('App\Http\Controllers\MenuController')->show(null, $slug);
+    app('App\Http\Controllers\MenuController')->show("", $slug);
 });
 Route::post('hamada', function () {
     echo " i am hamada";
