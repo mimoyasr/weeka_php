@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Resources\MenuResource;
 use App\Meal;
 use App\User;
+use App\Fav;
+use App\Inquery;
 
 class HomeController extends Controller
 {
