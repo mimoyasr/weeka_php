@@ -14,7 +14,7 @@ class MenuResource extends JsonResource
      */
     public function toArray($request)
     {
-        $ret = [
+        return [
             'meal_id' => $this->id,
             'name' => $this->name,
             'chef_name' => "{$this->chef->fname}  {$this->chef->lname}",
@@ -28,23 +28,11 @@ class MenuResource extends JsonResource
             'description' => $this->desc,
             'rate' => $this->rate,
             'state' => $this->state ? true : false,
+            'comment_state' => $this->commentState ? true : false,
+            'fav' => $this->fav ? true : false,
             'district_id' => $this->chef->addresses[0]->district->id,
             'numbers_of_orders' => count($this->inqueryItems),
             'reviews' => ReviewResource::collection($this->reviews),
         ];
-
-        if ($this->fav) {
-            $ret['fav'] = $this->fav;
-        } else {
-            $ret['fav'] = false;
-        }
-
-        if ($this->state) {
-            $ret['state'] = $this->state;
-        } else {
-            $ret['state'] = false;
-        }
-
-        return $ret;
     }
 }

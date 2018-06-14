@@ -17,7 +17,6 @@ class MealResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            // 'chef' => new ChefResource($this->chef),
             'chef_name' => $this->chef->fullname,
             'chef_id' => $this->chef->id,
             'image' => $this->image,
@@ -27,7 +26,6 @@ class MealResource extends JsonResource
             'preparation_time' => $this->preparation_time,
             'slug' => $this->slug,
             'description' => $this->desc,
-            // 'reviews' => ReviewResource::collection($this->reviews),
             'average' => $this->average,
             'state' => $this->state ? true : false,
             'rate' => $this->rate,

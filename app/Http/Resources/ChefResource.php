@@ -25,7 +25,8 @@ class ChefResource extends JsonResource
             'state' => $this->state,
             'telephones' => TelephoneResource::collection($this->telephones),
             'addresses' => AddressResource::collection($this->addresses),
-            'working_hours' => WorkingHoursResource::collection($this->workinghours)
+            'working_hours' => WorkingHoursResource::collection($this->workinghours),
+            'meals' => MealResource::collection($this->meals)
         ];
     }
 }
