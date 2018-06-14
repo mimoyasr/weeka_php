@@ -42,7 +42,7 @@ class MenuController extends Controller
         return MenuResource::collection($menu);
     }
 
-    public function show(string $district_slug, string $slug)
+    public function show($district_slug, string $slug)
     {
         $mealAverage = Meal::join('reviews', 'meals.id', '=', 'reviews.meal_id')->
             where('slug', $slug)->
