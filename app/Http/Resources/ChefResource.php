@@ -21,6 +21,7 @@ class ChefResource extends JsonResource
             'gender' => $this->gender == 'male' ? 'ذكر' : 'انثي',
             'email' => $this->email,
             'image' => $this->image,
+            'type' => $this->type,
             'description' => $this->desc,
             'state' => $this->state,
             'telephones' => TelephoneResource::collection($this->telephones),
