@@ -31,6 +31,7 @@ class MenuResource extends JsonResource
             'comment_state' => $this->commentState ? true : false,
             'fav' => $this->fav ? true : false,
             'district_id' => $this->chef->addresses[0]->district->id,
+            'district_slug' => $this->chef->addresses[0]->district->slug,
             'numbers_of_orders' => count($this->inqueryItems),
             'reviews' => ReviewResource::collection($this->reviews),
         ];
