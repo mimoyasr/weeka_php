@@ -16,7 +16,10 @@ class ChefProfileResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'fname' => $this->fname,
+            'lname' => $this->lname,
             'name' => $this->fullname,
+            'gender' => $this->gender == 'male' ? 'ذكر' : 'انثي',
             'image' => $this->image , 
             'description' => $this->desc,
             'no_of_orders' => $this->no_of_orders,
