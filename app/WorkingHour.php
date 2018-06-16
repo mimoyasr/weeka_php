@@ -13,6 +13,7 @@ class WorkingHour extends Model
      */
     protected $fillable = [
         'chef_id',
+        'day',
         'from_hour',
         'from_min',
         'from_period',
