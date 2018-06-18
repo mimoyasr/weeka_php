@@ -54,6 +54,21 @@ return [
             'engine' => null,
         ],
 
+        // 'mysql' => [
+        //     'driver' => 'mysql',
+        //     'host' => env('DB_HOST', 'sql2.freemysqlhosting.net'),
+        //     'port' => env('DB_PORT', '3306'),
+        //     'database' => env('DB_DATABASE', 'sql2243442'),
+        //     'username' => env('DB_USERNAME', 'sql2243442'),
+        //     'password' => env('DB_PASSWORD', 'yI2%vZ3*'),
+        //     'unix_socket' => env('DB_SOCKET', ''),
+        //     'charset' => 'utf8mb4',
+        //     'collation' => 'utf8mb4_unicode_ci',
+        //     'prefix' => '',
+        //     'strict' => true,
+        //     'engine' => null,
+        // ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'host' => env('DB_HOST', '127.0.0.1'),
