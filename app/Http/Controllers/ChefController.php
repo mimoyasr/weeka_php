@@ -136,7 +136,7 @@ class ChefController extends Controller
             'gender' => 'exists:users,gender',
             'password' => 'string|min:6|max:32',
             'desc' => 'min:10|max:255',
-            'state' => 'exists:users,state',
+            'state' => 'in:true,false',
 
         ]);
         if ($validator->fails()) {
