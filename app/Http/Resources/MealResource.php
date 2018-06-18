@@ -27,6 +27,7 @@ class MealResource extends JsonResource
             'slug' => $this->slug,
             'description' => $this->desc,
             'average' => $this->average,
+            'no_of_orders' => count($this->inqueryItems),
             'state' => $this->state ? true : false,
             'rate' => $this->rate,
         ];
