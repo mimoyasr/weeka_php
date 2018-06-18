@@ -31,15 +31,10 @@ class InqueryController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->except('id', 'user_id');
-        $validation = $this->_validation($data);
-        if ($validation === true) {
-            $data['user_id'] = $this->user->id;
-            $inquery = Inquery::create($data);
-            return new InqueryResource($inquery);
-        } else {
-            return $validation;
-        }
+        $data = [];
+        $data['user_id'] = $this->user->id;
+        $inquery = Inquery::create($data);
+        return new InqueryResource($inquery);
     }
 
     /**
@@ -89,6 +84,20 @@ class InqueryController extends Controller
             'telephone_id' => 'exists:telephones,id',
             'address_id' => 'exists:addresses,id',
             'payment_id' => 'exists:payments,id',
+            'state' => 'integer|betweeen:-1,0']);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+        return true;
+    }
+
+    private function _validationUpdate($data)
+    {
+        $validator = Validator::make($data, [
+            'telephone_id' => 'required|exists:telephones,id',
+            'address_id' => 'required|exists:addresses,id',
+            'payment_id' => 'required|exists:payments,id',
             'state' => 'integer|betweeen:-1,0']);
 
         if ($validator->fails()) {
